@@ -35,6 +35,7 @@ bool is_valid_position(int x, int y) {
     return (x >= 0 && x < ROW) && (y >= 0 && y < COL);
 }
 
+// generate successors of the given state
 set<State> generata_successors(State fruits) {
     set<State> successors;
     for (int i = 0; i < ROW; i++) {
@@ -52,6 +53,7 @@ set<State> generata_successors(State fruits) {
     return successors;
 }
 
+// check if the grid is correctly sorted
 bool is_sorted(const State& state) {
     for (int j = 0; j < COL; j++) {
         char fruit_type = state[0][j][0];
@@ -69,7 +71,10 @@ bool is_sorted(const State& state) {
     }
     return true;
 }
-
+// in this heuristic, i check how close the given type of fruit is to its correct position when it is sorted.
+// And i sum those numbers for the given state of the fruit. Let's say I have an apple with size 12 
+//and now it is in the first row. When it is sorted it is position should be the last row. 
+//I substract those row numbers and add them up for each fruit type. 
 int heuristic(State state) {
     vector<pair<string, int>> vp;
 
@@ -99,6 +104,11 @@ int heuristic(State state) {
     return estimated_cost;
 }
 
+// Another heuristic i tried is manhattan distance. In this case, let's say largest apple 
+// fruit with size 10 is in position (0,0) but when it is sorted, it can be in one of the three columns.
+// So i take all possible combinations and calculate the manhattan distance for each fruit on grid for all
+// 6 possible cases and the take the minimum. This one performed better than the previos on on input cases I ran.
+// But the problem with this heuristic is that it does not work on all possible input cases. (in2, in3, in4)
 int heuristic2(State state) {
     vector<pair<string, pair<int,int>>> vp;
 
@@ -156,6 +166,7 @@ int heuristic2(State state) {
     return *min_element(estimated_costs.begin(), estimated_costs.end());
 }
 
+// a star implementation. This is basically dijkstra + herisistic tha we calculate for each state
 int a_star(State start) {
     priority_queue<pair<int, State>, vector<pair<int, State>>, std::greater<pair<int, State>>> pq;
     map<State, int> cost;
