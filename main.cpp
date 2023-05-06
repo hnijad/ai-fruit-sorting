@@ -9,11 +9,6 @@
 #include <queue>
 #include <map>
 
-#include <chrono>
-#include <thread>
-
-
-
 using namespace std;
 
 const int ROW = 10;
@@ -94,10 +89,7 @@ int heuristic(State state) {
         return a.first[0] < b.first[0];
     });
 
-
     vector<int> estimated_costs(6, 0);
-
-
 
     int estimated_cost = 0;
     for (int i = 0;i <  vp.size(); i++) {
@@ -175,14 +167,10 @@ int a_star(State start) {
 
     while (!pq.empty()) {
         auto top = pq.top();
-        cout << "score = " << top.first << "\n";
-        print_v(top.second);
-        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-        cout << "\n";
         pq.pop();
 
         if (is_sorted(top.second)) {
-            cout << "Found the answer" << '\n';
+            cout << "Found the answer :" << '\n';
             print_v(top.second);
             return cost[top.second];
         }
@@ -198,14 +186,10 @@ int a_star(State start) {
             int current_cost = (cost.count(successor) ? cost[successor] : INF); // check if key exists in map
 
             if (current_cost > cost[top.second] + 1) {
-                //cout << "here" << "\n";
                 cost[successor] = cost[top.second] + 1;
                 pq.push(make_pair(cost[successor] + heuristic2(successor), successor));
             }
         }
-        //print_pq(pq);
-        //return -1;
-
     }
 
     return -1; // should not come here
@@ -219,19 +203,8 @@ int main() {
             cin >> fruits[i][j];
         }
     }
-    cout << heuristic2(fruits) << "\n";
-    //return 0;
+
     int cost = a_star(fruits);
     cout << "cost = " << cost << "\n";
-
-    // auto successors = generata_successors(fruits);
-
-    // for (auto successor: successors) {
-    //     print_v(successor);
-    //     cout << "\n";
-    // }
-
-    // cout << successors.size() << "\n";
-
     return 0;
 }

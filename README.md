@@ -18,7 +18,7 @@ g++ --std=c++11 main.cpp -o a_star.out
 To run the input case
 
 ```shell
-./a_star.out in1.txt 
+./a_star.out < in1.txt 
 ```
 
 
