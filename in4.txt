@@ -1,0 +1,10 @@
+a10 b10 o10
+a9 b9 o9
+a8 b8 o8
+a7 b7 o7
+a5 b6 o6
+a6 b5 o5
+a4 b4 o4
+a3 b3 o3
+a2 b2 o2
+a1 b1 o1
